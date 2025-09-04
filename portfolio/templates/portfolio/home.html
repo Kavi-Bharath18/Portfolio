@@ -1,0 +1,60 @@
+{% extends "portfolio/base.html" %}
+{% load static %}
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <!-- Profile Picture -->
+    {% if profile %}
+      <img src="{{ profile.image.url }}" alt="Profile Picture" class="profile-pic" width="300px">
+    {% endif %}
+
+    <div class="hero-text">
+      <h1>Hi, I'm <span class="accent">Kavi Bharath</span> 👋</h1>
+      <p class="lead">Python & Django Developer </p>
+      <p>Welcome to my portfolio. Explore my projects, skills, and experience.</p>
+      <p>A detail-oriented Python Full Stack Developer with hands-on experience in building robust web applications using
+Python, Django, Flask, and MySQL. Proficient in creating responsive frontend with HTML, CSS ensuring seamless
+user experiences. Adept at designing, developing, and deploying scalable applications with a strong focus on clean
+and maintainable code</p>
+      <div class="cta-row">
+        <a class="btn" href="{% url 'projects' %}">View Projects</a>
+        <a class="btn secondary" href="{% url 'contact' %}">Contact Me</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section>
+  <h2>Latest Projects</h2>
+  <div class="grid">
+    {% for p in latest_projects %}
+    <article class="card">
+      {% if p.image %}<img src="{{ p.image.url }}" alt="{{ p.title }}">{% endif %}
+      <div class="card-body">
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.summary|default:p.description|truncatewords:24 }}</p>
+        <div class="tags">
+          {% for t in p.tag_list %}<span class="tag">{{ t }}</span>{% endfor %}
+        </div>
+      </div>
+    </article>
+    {% empty %}
+      <p>No projects yet. Add some in the admin.</p>
+    {% endfor %}
+  </div>
+</section> -->
+
+<!-- <section>
+  <h2>Top Skills</h2>
+  <ul class="skills">
+    {% for s in top_skills %}
+      <li>
+        <span>{{ s.name }}</span>
+        <div class="bar"><div style="width: 20px;"></div></div>
+      </li>
+    {% empty %}
+      <p>No skills yet. Load fixtures or add via admin.</p>
+    {% endfor %}
+  </ul>
+</section> -->
+{% endblock %}

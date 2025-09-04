@@ -1,0 +1,48 @@
+{% extends "portfolio/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="resume-section">
+    <h1 class="resume-title">📄 My Resume</h1>
+    <p class="resume-subtitle">Highlights of my professional journey</p>
+
+    <div class="resume-grid">
+        <!-- Experience -->
+        <div class="resume-card">
+            <h2>💼 Experience</h2>
+            <ul>
+                <li><strong>Python Full Stack Intern</strong> – Uniq Technology</li>
+            </ul>
+        </div>
+
+        <!-- Education -->
+        <div class="resume-card">
+            <h2>🎓 Education</h2>
+            <ul>
+                <li>B.Sc. Mathematics (CGPA 8.6) – DG Vaishnav College</li>
+            </ul>
+        </div>
+
+        <!-- Skills -->
+        <div class="resume-card">
+            <h2>🛠 Skills</h2>
+            <ul>
+                <li>Python, Django, Flask</li>
+                <li>Pandas, Numpy</li>
+                <li>HTML, CSS, JavaScript</li>
+                <li>MySQL</li>
+            </ul>
+        </div>
+    </div>
+
+    {% if resume %}
+        <div class="resume-download">
+            <a href="{{ resume.resume.url }}" target="_blank" class="download-btn">
+                ⬇️ Download Full Resume (PDF)
+            </a>
+        </div>
+    {% else %}
+        <p class="no-resume">⚠️ No resume uploaded yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

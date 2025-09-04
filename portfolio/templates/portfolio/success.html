@@ -1,0 +1,31 @@
+{% extends "portfolio/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="success-section">
+  <div class="success-card">
+    <!-- Animated check -->
+    <div class="success-icon">
+      <svg viewBox="0 0 52 52" class="check">
+        <circle class="check-circle" cx="26" cy="26" r="25" fill="none"></circle>
+        <path class="check-mark" fill="none" d="M14 27 l8 8 l16 -16"></path>
+      </svg>
+    </div>
+
+    <h1 class="success-title">Email Sent Successfully</h1>
+    <p class="success-text">
+      Thanks for reaching out! I’ve received your message and will get back to you soon.
+    </p>
+
+    <div class="success-actions">
+      <a href="{% url 'home' %}" class="btn-primary">🏠 Go to Home</a>
+      <a href="{% url 'contact' %}" class="btn-ghost">✉️ Send Another Message</a>
+    </div>
+
+    <!-- Optional: small note -->
+    <p class="success-note">
+      Didn’t mean to send that? <a href="{% url 'contact' %}">Go back to the contact form</a>.
+    </p>
+  </div>
+</div>
+{% endblock %}

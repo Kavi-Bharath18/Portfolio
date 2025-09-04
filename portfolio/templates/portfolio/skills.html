@@ -1,0 +1,70 @@
+{% extends "portfolio/base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<section id="skills">
+  <div class="skills-container">
+    <h2>My Skills</h2>
+    <p class="intro">Here are the technologies and tools I’ve worked with during my learning journey and internship.</p>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Programming Languages</h3>
+        <ul>
+          <li>Python</li>
+          <li>JavaScript</li>
+          <li>MySQL</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <h3>Frameworks & Libraries</h3>
+        <ul>
+          <li>Django</li>
+          <li>Flask</li>
+          <li>Django REST Framework</li>
+          <li>Pandas</li>
+          <li>Numpy</li>
+
+
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <h3>Frontend</h3>
+        <ul>
+          <li>HTML5</li>
+          <li>CSS3</li>
+          <li>JavaScript</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <h3>Databases</h3>
+        <ul>
+          <li>MySQL</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <h3>Tools</h3>
+        <ul>
+          <li>Git & GitHub</li>
+          <li>Postman</li>
+          <li>VS Code / PyCharm</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <h3>Other Skills</h3>
+        <ul>
+          <li>Web Scraping</li>
+          <li>Microsoft Excek(Advance)</li>
+          <li>Problem Solving</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
