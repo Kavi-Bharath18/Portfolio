@@ -1,16 +1,21 @@
 from pathlib import Path
 import os
-from decouple import config
 
-
+# ------------------------------
+# BASE DIRECTORY
+# ------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-me')
-DEBUG = os.getenv('DEBUG', '1') == '1'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
-ALLOWED_HOSTS = ['portfolio-6yly.onrender.com']
+# ------------------------------
+# SECURITY
+# ------------------------------
+SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key-change-me")
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "portfolio-6yly.onrender.com").split(",")
 
-
+# ------------------------------
+# INSTALLED APPS
+# ------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -18,12 +23,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'portfolio',
+    'portfolio',  # Your app
 ]
 
+# ------------------------------
+# MIDDLEWARE
+# ------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # For serving static files in production
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -32,12 +40,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# ------------------------------
+# URLS
+# ------------------------------
 ROOT_URLCONF = 'myportfolio.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -52,13 +63,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myportfolio.wsgi.application'
 
+# ------------------------------
+# DATABASE
+# ------------------------------
+# Default: SQLite (good for small apps)
+# For production, you can switch to Postgres via DATABASE_URL environment variable
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.environ.get("DB_ENGINE", "django.db.backends.sqlite3"),
+        'NAME': os.environ.get("DB_NAME", BASE_DIR / "db.sqlite3"),
+        'USER': os.environ.get("DB_USER", ""),
+        'PASSWORD': os.environ.get("DB_PASSWORD", ""),
+        'HOST': os.environ.get("DB_HOST", ""),
+        'PORT': os.environ.get("DB_PORT", ""),
     }
 }
 
+# ------------------------------
+# PASSWORD VALIDATION
+# ------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -66,26 +89,39 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+# ------------------------------
+# INTERNATIONALIZATION
+# ------------------------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 USE_TZ = True
 
+# ------------------------------
+# STATIC FILES
+# ------------------------------
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# ------------------------------
+# MEDIA FILES
+# ------------------------------
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+# ------------------------------
+# EMAIL CONFIGURATION
+# ------------------------------
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 587))
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "True") == "True"
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 
-SECRET_KEY = config('SECRET_KEY')
+# ------------------------------
+# DEFAULT AUTO FIELD
+# ------------------------------
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
