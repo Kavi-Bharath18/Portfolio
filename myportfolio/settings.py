@@ -1,5 +1,5 @@
 from pathlib import Path
-import os
+from decouple import config, Csv
 
 # ------------------------------
 # BASE DIRECTORY
@@ -9,9 +9,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ------------------------------
 # SECURITY
 # ------------------------------
-SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key-change-me")
-DEBUG = os.environ.get("DEBUG", "False") == "True"
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "portfolio-6yly.onrender.com").split(",")
+SECRET_KEY = config("SECRET_KEY")
+DEBUG = config("DEBUG", default=False, cast=bool)
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="127.0.0.1,localhost", cast=Csv())
 
 # ------------------------------
 # INSTALLED APPS
@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'portfolio',  # Your app
+    'portfolio',  # your app
 ]
 
 # ------------------------------
@@ -31,7 +31,7 @@ INSTALLED_APPS = [
 # ------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # For serving static files in production
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -66,16 +66,14 @@ WSGI_APPLICATION = 'myportfolio.wsgi.application'
 # ------------------------------
 # DATABASE
 # ------------------------------
-# Default: SQLite (good for small apps)
-# For production, you can switch to Postgres via DATABASE_URL environment variable
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get("DB_ENGINE", "django.db.backends.sqlite3"),
-        'NAME': os.environ.get("DB_NAME", BASE_DIR / "db.sqlite3"),
-        'USER': os.environ.get("DB_USER", ""),
-        'PASSWORD': os.environ.get("DB_PASSWORD", ""),
-        'HOST': os.environ.get("DB_HOST", ""),
-        'PORT': os.environ.get("DB_PORT", ""),
+        'ENGINE': config("DB_ENGINE", default="django.db.backends.sqlite3"),
+        'NAME': config("DB_NAME", default=BASE_DIR / "db.sqlite3"),
+        'USER': config("DB_USER"),
+        'PASSWORD': config("DB_PASSWORD"),
+        'HOST': config("DB_HOST", default="localhost"),
+        'PORT': config("DB_PORT", default="3306"),
     }
 }
 
@@ -114,14 +112,17 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # ------------------------------
 # EMAIL CONFIGURATION
 # ------------------------------
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
-EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 587))
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "True") == "True"
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+EMAIL_HOST = config("EMAIL_HOST", default="smtp.gmail.com")
+EMAIL_PORT = config("EMAIL_PORT", default=587, cast=int)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # ------------------------------
 # DEFAULT AUTO FIELD
 # ------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
