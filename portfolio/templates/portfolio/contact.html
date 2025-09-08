@@ -2,40 +2,53 @@
 {% load static %}
 
 {% block content %}
-<div class="contact-section">
-    <h1 class="contact-title">📬 Get in Touch</h1>
-    <p class="contact-subtitle">I’d love to connect with you! Send me a message below.</p>
+<section class="contact-section">
+  <div class="container">
+    <h1 class="contact-title">📩 Contact <span class="accent">Me</span></h1>
+    <p class="contact-subtitle">
+      I’d love to hear from you! Fill out the form below and I’ll get back to you soon.
+    </p>
 
     <div class="contact-grid">
-        <!-- Contact Form -->
-        <div class="contact-form">
-            <form method="POST">
-                {% csrf_token %}
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Your Email" required>
-                </div>
-                <div class="form-group">
-                    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">🚀 Send Message</button>
-            </form>
-        </div>
+      <!-- Contact Form -->
+      <div class="contact-form">
+        <form method="POST" action="{% url 'contact' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+          </div>
 
-        <!-- Contact Info -->
-        <div class="contact-info">
-            <h2>📞 Contact Information</h2>
-            <p>📍 Chennai, Tamil Nadu, India</p>
-            <p>📧 kavibharath5487@gmail.com</p>
-            <p>📱 +91 8220295154</p>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email">
+          </div>
 
-            <div class="social-links">
-                <a href="https://github.com/kavibharath" target="_blank">🐙 GitHub</a>
-                <a href="https://linkedin.com/in/kavi-kavi5487" target="_blank">💼 LinkedIn</a>
-            </div>
-        </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required placeholder="Enter the subject">
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Write your message here..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <h2>📍 Get in Touch</h2>
+        <p>If you prefer, you can also reach me directly:</p>
+        <ul>
+          <li><strong>Email:</strong> kavibharath5487@gmail.com</li>
+          <li><strong>Phone:</strong> +91 82202 95154</li>
+          <li><strong>Location:</strong> Chennai, India</li>
+        </ul>
+      </div>
     </div>
-</div>
+  </div>
+</section>
 {% endblock %}
